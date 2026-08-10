@@ -1,0 +1,41 @@
+{
+  "name": "personal-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "workflow:career": "tsx --env-file=.env.local scripts/run-career.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "openai": "latest",
+    "postgres": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "drizzle-kit": "latest",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "latest",
+    "tsx": "latest",
+    "typescript": "^6.0.3",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@11.16.0"
+}

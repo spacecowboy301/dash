@@ -1,0 +1,22 @@
+# dependencies
+/node_modules
+
+# Next.js
+/.next
+/out
+
+# local configuration
+.env
+.env.local
+.env.*.local
+
+# test and coverage output
+/coverage
+
+# local database runtime
+/.pgdata
+/.pgsocket
+
+# misc
+.DS_Store
+*.tsbuildinfo

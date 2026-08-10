@@ -215,3 +215,28 @@ For the first version, choose the simplest low-maintenance deployment that suppo
 - low-volume API traffic
 
 A common approach is managed frontend hosting plus managed Postgres, but implementation should choose based on simplicity rather than brand preference.
+
+## Milestone-One Implementation
+
+The first vertical slice is one Next.js App Router application rather than separate frontend and backend services.
+
+```text
+Next.js server-rendered Home
+  → server actions / workflow scripts
+  → Drizzle query layer
+  → PostgreSQL
+  → Career source adapters
+  → deterministic change detection and filters
+  → optional budget-gated OpenAI evaluator
+```
+
+Core tables:
+
+- `workflows` and `workflow_runs`
+- `source_snapshots`
+- `findings`, `finding_sources`, and `finding_events`
+- `ai_budget_months` and `model_usage`
+
+The OpenAI call occurs outside database transactions. A short transaction first reserves conservative estimated cost; a second transaction records actual usage and releases the unused reservation. An operational ceiling of $4.50 protects the $5 hard limit from estimation and provider-enforcement lag.
+
+Authentication, scheduling infrastructure, prepared actions, additional workflow domains, and production hosting remain deferred.

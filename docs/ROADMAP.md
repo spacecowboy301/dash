@@ -1,5 +1,9 @@
 # Roadmap
 
+## Current Status
+
+Milestone one is implemented locally: application scaffold, shared schema, mobile Home, finding actions, Career source retrieval, change detection, deterministic filtering, optional budget-gated AI evaluation, persistence, tests, and a local runbook. Production deployment remains intentionally blocked on authentication.
+
 ## Phase 0 — Project Setup
 
 - Create repository

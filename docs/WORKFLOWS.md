@@ -53,6 +53,20 @@ Each surfaced role should include:
 ### Product Rule
 Do not surface weak roles simply to provide volume.
 
+### Milestone-One Implementation
+
+The implemented Career monitor supports:
+
+- a deterministic fixture adapter for local demonstrations;
+- a public Greenhouse Job Board adapter for configured companies;
+- SHA-256 source fingerprints stored in `source_snapshots`;
+- deterministic title and mismatch filters;
+- one batched evaluator call for changed, promising candidates;
+- a deterministic fallback when OpenAI is disabled or budget-blocked;
+- direct provenance links, workflow counters, and deduplicated findings.
+
+Model evaluation is skipped for unchanged listings and deterministic mismatches. Every attempted, skipped, completed, or failed model call is attributable to a workflow run.
+
 ---
 
 ## Shopping Workflow

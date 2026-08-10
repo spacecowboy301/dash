@@ -102,3 +102,51 @@ This file records material product and architecture decisions.
 **Decision:** Product and architecture context should live in repository Markdown files.
 
 **Rationale:** Codex and other engineering tools can then operate from durable project context rather than one chat thread.
+
+---
+
+## D-013: Use a Next.js full-stack monolith for milestone one
+
+**Decision:** Keep the dashboard, server actions, workflow orchestration, and database access in one TypeScript application.
+
+**Rationale:** A separate backend service adds deployment and coordination cost without improving the first vertical slice.
+
+---
+
+## D-014: Use PostgreSQL with a thin typed query layer
+
+**Decision:** Persist shared state in PostgreSQL through Drizzle and checked-in SQL migrations.
+
+**Rationale:** PostgreSQL matches the long-term source-of-truth requirement while keeping the schema explicit and portable.
+
+---
+
+## D-015: Manually trigger workflows before adding a scheduler
+
+**Decision:** Run the Career workflow through a local command in milestone one.
+
+**Rationale:** Scheduling infrastructure is unnecessary until the workflow is useful and stable.
+
+---
+
+## D-016: Enforce a $5 monthly OpenAI ceiling in two layers
+
+**Decision:** Reserve model cost atomically in the application, stop new calls at a $4.50 operational ceiling, and require a $5 OpenAI project limit as a provider backstop.
+
+**Rationale:** Provider hard limits can have enforcement lag. The local ledger provides deterministic workflow-level control and attribution.
+
+---
+
+## D-017: Use GPT-5.6 Luna for optional Career judgment
+
+**Decision:** Default to `gpt-5.6-luna` with low reasoning effort, bounded output, Structured Outputs, and no response storage.
+
+**Rationale:** Career evaluation is a focused classification and ranking task. The model is configurable so it can change after evaluation without touching workflow logic.
+
+---
+
+## D-018: Keep the first milestone local-only
+
+**Decision:** Do not publicly deploy until authentication exists.
+
+**Rationale:** The application contains personal decision data and currently assumes one trusted local user.
