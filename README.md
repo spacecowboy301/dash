@@ -12,6 +12,22 @@ Dash is a mobile-first Personal OS that surfaces a small number of meaningful ch
 - application-enforced $5 monthly limit with a $0.50 safety buffer
 - per-workflow token and estimated-cost ledger
 
+## Current Findings
+
+- Cheap hash-based change detection and deterministic filtering should run
+  before model evaluation; unchanged or clearly irrelevant listings do not
+  justify an API call.
+- A shared finding schema lets the Home dashboard remain independent of the
+  workflow that produced each item and provides the foundation for future
+  monitoring domains.
+- The Career vertical exercises the full monitoring loop: retrieval,
+  normalization, deduplication, filtering, optional judgment, persistence, and
+  surfacing with direct source links.
+- Application-side cost reservation provides deterministic workflow-level
+  control, while the provider project limit remains a necessary second layer.
+- The first milestone is feature-complete for local single-user use, but public
+  deployment remains intentionally blocked until authentication is added.
+
 ## Local setup
 
 Requirements: Node.js 20+ with pnpm and PostgreSQL 15+.
