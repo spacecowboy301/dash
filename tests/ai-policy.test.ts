@@ -1,7 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { canReserveWithinOperationalCeiling, decideModelInvocation } from "@/ai/policy";
+import {
+  canReserveWithinOperationalCeiling,
+  decideModelInvocation,
+  isModelEvaluationExplicitlyEnabled,
+} from "@/ai/policy";
 
 describe("AI invocation policy", () => {
+  it("requires an exact, explicit opt-in before model evaluation", () => {
+    expect(isModelEvaluationExplicitlyEnabled(undefined)).toBe(false);
+    expect(isModelEvaluationExplicitlyEnabled("false")).toBe(false);
+    expect(isModelEvaluationExplicitlyEnabled("TRUE")).toBe(false);
+    expect(isModelEvaluationExplicitlyEnabled("true")).toBe(true);
+  });
+
   it("never invokes a model for unchanged input", () => {
     expect(
       decideModelInvocation({

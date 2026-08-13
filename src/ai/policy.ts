@@ -3,6 +3,10 @@ export type ModelInvocationDecision = {
   reason?: string;
 };
 
+export function isModelEvaluationExplicitlyEnabled(value: string | undefined): boolean {
+  return value === "true";
+}
+
 export function decideModelInvocation(input: {
   meaningfulChange: boolean;
   passesDeterministicFilters: boolean;

@@ -7,6 +7,7 @@ import {
   releaseModelBudget,
   reserveModelBudget,
 } from "@/ai/budget";
+import { isModelEvaluationExplicitlyEnabled } from "@/ai/policy";
 import type {
   CareerEvaluation,
   CareerEvaluator,
@@ -36,6 +37,12 @@ export class BudgetGatedCareerEvaluator implements CareerEvaluator {
   ): Promise<{ evaluations: CareerEvaluation[]; aiSkippedReason?: string }> {
     const model = process.env.OPENAI_MODEL ?? "gpt-5.6-luna";
     if (candidates.length === 0) return { evaluations: [] };
+
+    if (!isModelEvaluationExplicitlyEnabled(process.env.ENABLE_OPENAI_EVALUATION)) {
+      const reason = "OpenAI evaluation is disabled; deterministic evaluation used.";
+      await recordSkippedModelCall({ ...context, model, reason });
+      return { evaluations: deterministicEvaluate(candidates), aiSkippedReason: reason };
+    }
 
     if (!process.env.OPENAI_API_KEY) {
       const reason = "OPENAI_API_KEY is not configured; deterministic evaluation used.";

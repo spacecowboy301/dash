@@ -63,17 +63,33 @@ Each entry is `board-token:company-name`.
 
 ## Optional OpenAI evaluation
 
-Set `OPENAI_API_KEY` locally to enable model evaluation. Never commit the key. The default evaluator uses `gpt-5.6-luna`, low reasoning effort, Structured Outputs, and `store: false`.
+Model evaluation is off by default, even if an OpenAI key already exists in
+your shell. To opt in, set both `ENABLE_OPENAI_EVALUATION=true` and your own
+`OPENAI_API_KEY` locally. Never commit the key. The default evaluator uses
+`gpt-5.6-luna`, low reasoning effort, Structured Outputs, and `store: false`.
 
 The application will not call OpenAI unless all of these are true:
 
 1. source content changed;
 2. deterministic filters passed;
 3. judgment is useful;
-4. an API key is configured; and
-5. a conservative cost reservation fits below the operational ceiling.
+4. model evaluation is explicitly enabled;
+5. an API key is configured; and
+6. a conservative cost reservation fits below the operational ceiling.
 
 The database hard limit is $5.00/month and new calls stop at $4.50 to preserve a safety buffer. Price assumptions are configurable because provider pricing can change. Also configure a $5 project hard limit in the [OpenAI API project settings](https://developers.openai.com/api/docs/guides/spend-limits). Provider enforcement can lag slightly, so the local ledger remains the first line of defense.
+
+## Cost safety
+
+Cloning or downloading Dash cannot charge the repository owner. No API key,
+database credential, hosted backend, or deployment secret is included. The
+default workflow is deterministic and makes no OpenAI request. Anyone who
+chooses to enable model evaluation must supply their own key, and usage is
+billed to the project that owns that key.
+
+See [`COST_SAFETY.md`](COST_SAFETY.md) for the threat model, safeguards, and
+account-side controls. Run `pnpm cost:audit` to reject tracked secret files and
+common live-token formats.
 
 ## Checks
 
